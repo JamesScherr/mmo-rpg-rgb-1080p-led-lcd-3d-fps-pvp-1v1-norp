@@ -3,9 +3,7 @@ var xMoveN = 0;
 var yMove = 0;
 var yMoveN = 0;
 let char;
-let groundTest
-let headTest
-let bullet
+let bullets = [];
 
 
 function setup() {
@@ -23,10 +21,23 @@ function draw() {
   rect (400, 700, 150, 10)
   fill(110, 86, 8)
   rect(400, 710, 150, 7)
-  groundTest = get(char.x, char.y+31)
-  headTest = get(char.x, char.y)
+
   char.drawBruh();
   char.moveBruh();
+
+  for (let i = 0; i<bullets.length; i++){
+      bullets[i].drawBullet();
+      bullets[i].shootBullet();
+  }
+
+}
+
+function keyPressed(){
+    if (keyCode === 17){
+        let b = new Bullet (char.x,char.y,char.direction)
+        bullets.push(b);
+        print(bullets)
+    }
 
 }
 
@@ -83,11 +94,8 @@ class bruh {
       xMoveN=-7
     }
 
-    if (headTest[0] == 110 && headTest[1] == 86 && headTest[2] == 8){
-      yMoveN= .3
-    }
 
-    if (keyIsDown(UP_ARROW) && groundTest[0] == 148 && groundTest[1] == 240 && groundTest[2] == 10){
+    if (keyIsDown(UP_ARROW)){
       yMoveN=yMoveN-10
     }
 
@@ -100,24 +108,35 @@ class bruh {
     }
 	}
 }
-  class shoot {
-  	constructor(x,y,color1){
+  class Bullet {
+  	constructor(x,y,direction){
   	   this.x = x;
        this.y = y;
-       this.color= color;
+       this.direction = direction;
+      // this.color= color;
   	}
 
   	drawBullet(){
       stroke(.5);
-      fill(this.color);
-  		elipse(this.x,this.y,30,30);
+      fill("black");
+  	  ellipse(this.x,this.y,30,30);
   	}
-    shootrightBullet(){
-      if(KeyPressed(17) && char.direction == "right")
-      (this.x*1)+5
+
+
+    shootBullet(){
+        print (this.direction)
+
+    if(this.direction == "none yet"){
+        //what should the bullet do then? 
     }
-    shootleftBullet(){
-      if(KeyPressed(17) && char.direction == "left")
-      (this.x*-1)+5
+     if(this.direction == "right"){
+        this.x =(this.x*1)+5
+      }
+
+
+      if(this.direction == "left"){
+        this.x = this.x-5;
+      }
+
     }
 }
