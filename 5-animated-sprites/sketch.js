@@ -1,12 +1,19 @@
 let char;
 let char2;
 let ground;
+let plat1;
+let platforms = []
 
 function setup() {
   createCanvas(1600, 900);
-  char = new bruh(800, 800, 0, 0, 0, 0, false, 50, "white", UP_ARROW, RIGHT_ARROW, LEFT_ARROW);
+  char = new bruh(800, 800, 0, 0, 0, 0, false, 100, "white", UP_ARROW, RIGHT_ARROW, LEFT_ARROW);
   char2 = new bruh(200, 800, 0,0,0,0, false,100, "green", 87,68,65)
   ground = new platform(0, 830, 1600, 100);
+
+  for(let i = 0; i < 4; i++){
+    let p = new platform(i*200, 740, 100, 10)
+    platforms.push(p)
+  }
 }
 
 function draw() {
@@ -15,17 +22,24 @@ function draw() {
   char.drawBruh();
   char.moveBruh();
   char.land()
+  char2.land()
   char2.drawBruh();
   char2.moveBruh();
-  char2.land();
   char.healthbar();
+  char2.healthbar();
   fill(148, 240, 10)
   noStroke()
   ground.drawPlatform();
   textSize(30)
 
-}
+  // plat1.drawPlatform();
 
+  for(let i = 0; i < platforms.length; i++){
+
+      platforms[i].drawPlatform()
+    }
+
+}
 class bruh {
 	constructor(x,y,xMove, xMoveN, yMove, yMoveN, jumpable, health, color,jumpkey, rightkey, leftkey){
 	   this.x = x;
@@ -112,46 +126,66 @@ class bruh {
 
   }
   healthbar(){
-    fill(148, 240, 10)
-    rect(this.x, this.y-10, 30, 7)
 
-    if (this.health < 100 && this.health > 90){
+    if (this.health == 100) {
+      fill(148, 240, 10)
+      rect(this.x, this.y-10, 30, 7)
+    }
+    else if (this.health < 100 && this.health >= 90){
       fill(255, 17, 0)
       rect(this.x+27, this.y-10, 3, 7)
+      fill(148, 240, 10)
+      rect(this.x, this.y-10, 27, 7)
     }
-    if (this.health < 90 && this.health > 80){
+    else if (this.health < 90 && this.health >= 80){
       fill(255, 17, 0)
       rect(this.x+24, this.y-10, 6, 7)
+      fill(148, 240, 10)
+      rect(this.x, this.y-10, 24, 7)
     }
-    if (this.health < 80 && this.health > 70){
+    else if (this.health < 80 && this.health >= 70){
       fill(255, 17, 0)
       rect(this.x+21, this.y-10, 9, 7)
+      fill(148, 240, 10)
+      rect(this.x, this.y-10, 21, 7)
     }
-    if (this.health < 70 && this.health > 60){
+    else if (this.health < 70 && this.health >= 60){
       fill(255, 17, 0)
       rect(this.x+18, this.y-10, 12, 7)
+      fill(148, 240, 10)
+      rect(this.x, this.y-10, 18, 7)
     }
-    if (this.health < 60 && this.health > 50){
+    else if (this.health < 60 && this.health >= 50){
       fill(255, 17, 0)
       rect(this.x+15, this.y-10, 15, 7)
+      fill(148, 240, 10)
+      rect(this.x, this.y-10, 15, 7)
     }
-    if (this.health < 50 && this.health > 40){
+    else if (this.health < 50 && this.health >= 40){
       fill(255, 17, 0)
       rect(this.x+12, this.y-10, 18, 7)
+      fill(148, 240, 10)
+      rect(this.x, this.y-10, 12, 7)
     }
-    if (this.health < 40 && this.health > 30){
+    else if (this.health < 40 && this.health >= 30){
       fill(255, 17, 0)
       rect(this.x+9, this.y-10, 21, 7)
+      fill(148, 240, 10)
+      rect(this.x, this.y-10, 9, 7)
     }
-    if (this.health < 30 && this.health > 20){
+    else if (this.health < 30 && this.health >= 20){
       fill(255, 17, 0)
       rect(this.x+6, this.y-10, 24, 7)
+      fill(148, 240, 10)
+      rect(this.x, this.y-10, 6, 7)
     }
-    if (this.health < 20 && this.health > 10){
+    else if (this.health < 20 && this.health >= 10){
       fill(255, 17, 0)
       rect(this.x+3, this.y-10, 27, 7)
+      fill(148, 240, 10)
+      rect(this.x, this.y-10, 3, 7)
     }
-    if (this.health < 10 && this.health > 0){
+    else if (this.health < 10 && this.health >= 0){
       fill(255, 17, 0)
       rect(this.x, this.y-10, 30, 7)
     }
