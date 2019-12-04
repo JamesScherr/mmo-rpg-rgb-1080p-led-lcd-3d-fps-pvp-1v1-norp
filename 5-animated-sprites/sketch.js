@@ -120,8 +120,8 @@ class bruh {
 
   	drawBullet(){
       stroke(.2);
-      fill("orange");
-  	  ellipse(this.x,this.y,15,15);
+      fill("black");
+  	  ellipse(this.x,this.y,10,10);
   	}
 
 
