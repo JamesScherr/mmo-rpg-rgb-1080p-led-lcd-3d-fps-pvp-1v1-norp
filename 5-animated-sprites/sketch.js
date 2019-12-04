@@ -6,12 +6,12 @@ let platforms = []
 
 function setup() {
   createCanvas(1600, 900);
-  char = new bruh(800, 800, 0, 0, 0, 0, false, 100, "white", UP_ARROW, RIGHT_ARROW, LEFT_ARROW);
-  char2 = new bruh(200, 800, 0,0,0,0, false,100, "green", 87,68,65)
+  char = new bruh(700, 600, 0, 0, 0, 0, false, 100, "white", UP_ARROW, RIGHT_ARROW, LEFT_ARROW);
+  char2 = new bruh(200, 700, 0,0,0,0, false,100, "green", 87,68,65)
   ground = new platform(0, 830, 1600, 100);
 
   for(let i = 0; i < 4; i++){
-    let p = new platform(i*200, 740, 100, 10)
+    let p = new platform(1+i*350, random(740, 650), 200, 10)
     platforms.push(p)
   }
 }
@@ -31,8 +31,6 @@ function draw() {
   noStroke()
   ground.drawPlatform();
   textSize(30)
-
-  // plat1.drawPlatform();
 
   for(let i = 0; i < platforms.length; i++){
 
@@ -103,6 +101,7 @@ class bruh {
 
     if (keyIsDown(this.jumpkey) && this.jumpable == true){
       this.yMoveN=this.yMoveN-10
+      this.jumpable=false
     }
 
     if (this.x >1570){
@@ -114,17 +113,21 @@ class bruh {
     }
 	}
   land(){
-    if(this.y >= ground.y-30){
+    for(let i = 0 ; i < platforms.length; i++){
+
+      if(this.x >= platforms[i].x && this.x <= platforms[i].x+platforms[i].w && this.y >=platforms[i].y-30 && this.y <= platforms[i].y+10) {
       this.yMoveN=0
-      this.y=this.y-0.4
+      this.y=this.y-0.1
       this.jumpable = true
 
     }
-    else {
-      this.jumpable = false
-    }
-
+    else if(this.y >= ground.y-30){
+    this.yMoveN=0
+    this.y=this.y-0.1
+    this.jumpable = true
   }
+  }
+}
   healthbar(){
 
     if (this.health == 100) {
