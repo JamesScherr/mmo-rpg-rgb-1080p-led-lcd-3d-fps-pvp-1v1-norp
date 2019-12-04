@@ -1,13 +1,20 @@
+
+
+let bullets = [];
 let char;
 let char2;
 let ground;
 let plat1;
 let platforms = []
 
+function preload() {
+  gunshot = loadSound('gunshot.mp3');
+}
+
 function setup() {
   createCanvas(1600, 900);
-  char = new bruh(700, 600, 0, 0, 0, 0, false, 100, "white", UP_ARROW, RIGHT_ARROW, LEFT_ARROW);
-  char2 = new bruh(200, 700, 0,0,0,0, false,100, "green", 87,68,65)
+  char = new bruh(700, 600, 0, 0, 0, 0, false, 100, "white", UP_ARROW, RIGHT_ARROW, LEFT_ARROW, "none yet");
+  char2 = new bruh(200, 700, 0,0,0,0, false,100, "green", 87,68,65, "none yet")
   ground = new platform(0, 830, 1600, 100);
 
   for(let i = 0; i < 4; i++){
@@ -19,6 +26,25 @@ function setup() {
 function draw() {
   noStroke()
   background(10, 163, 240);
+
+  for (let i = 0; i<bullets.length; i++){
+      bullets[i].drawBullet();
+      bullets[i].shootBullet();
+  }
+
+}
+
+function keyPressed(){
+    if (keyCode === 17){
+        gunshot.setVolume(1);
+        gunshot.play();
+        let b = new Bullet (char.x,char.y,char.direction)
+        bullets.push(b);
+        print(bullets)
+    }
+
+}
+
   char.drawBruh();
   char.moveBruh();
   char.land()
@@ -39,7 +65,7 @@ function draw() {
 
 }
 class bruh {
-	constructor(x,y,xMove, xMoveN, yMove, yMoveN, jumpable, health, color,jumpkey, rightkey, leftkey){
+	constructor(x,y,xMove, xMoveN, yMove, yMoveN, jumpable, health, color,jumpkey, rightkey, leftkey, direction){
 	   this.x = x;
      this.y = y;
      this.xMove = xMove
@@ -52,12 +78,17 @@ class bruh {
      this.jumpkey = jumpkey
      this.rightkey = rightkey
      this.leftkey = leftkey
+    this.direction = direction
 }
+
 
 	drawBruh(){
     stroke(.5);
     fill(this.color);
-	rect(this.x,this.y,30,30);
+		rect(this.x,this.y,30,30);
+	}
+
+
 	}
 
 	moveBruh(){
@@ -84,6 +115,7 @@ class bruh {
 
     if (keyIsDown(this.rightkey)){
       this.xMove=this.xMove+3
+      this.direction = "right"
     }
 
     if (this.xMove > 7){
@@ -92,6 +124,7 @@ class bruh {
 
     if (keyIsDown(this.leftkey)){
       this.xMoveN=this.xMoveN-3
+      this.direction = "left"
     }
 
     if (this.xMoveN < -7){
@@ -102,6 +135,7 @@ class bruh {
     if (keyIsDown(this.jumpkey) && this.jumpable == true){
       this.yMoveN=this.yMoveN-10
       this.jumpable=false
+
     }
 
     if (this.x >1570){
@@ -112,6 +146,40 @@ class bruh {
       this.x=0
     }
 	}
+
+}
+  class Bullet {
+  	constructor(x,y,direction){
+  	   this.x = x;
+       this.y = y;
+       this.direction = direction;
+      // this.color= color;
+  	}
+
+  	drawBullet(){
+      stroke(.2);
+      fill("black");
+  	  ellipse(this.x,this.y,10,10);
+  	}
+
+
+    shootBullet(){
+        print (this.direction)
+
+    if(this.direction == "none yet"){
+        //what should the bullet do then?
+    }
+     if(this.direction == "right"){
+        this.x =(this.x*1)+50;
+      }
+
+
+      if(this.direction == "left"){
+        this.x = this.x-50;
+      }
+
+    }
+
   land(){
     for(let i = 0 ; i < platforms.length; i++){
 
