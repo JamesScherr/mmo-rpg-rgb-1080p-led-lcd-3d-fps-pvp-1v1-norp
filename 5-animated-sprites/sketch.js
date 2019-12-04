@@ -5,12 +5,12 @@ var yMoveN = 0;
 let char;
 let bullets = [];
 
-
+function preload() {
+  gunshot = loadSound('gunshot.mp3');
+}
 function setup() {
   createCanvas(1600, 900);
   char = new bruh(800, 800,"white","none yet");
-
-
 }
 
 function draw() {
@@ -34,6 +34,8 @@ function draw() {
 
 function keyPressed(){
     if (keyCode === 17){
+        gunshot.setVolume(1);
+        gunshot.play();
         let b = new Bullet (char.x,char.y,char.direction)
         bullets.push(b);
         print(bullets)
@@ -117,9 +119,9 @@ class bruh {
   	}
 
   	drawBullet(){
-      stroke(.5);
-      fill("black");
-  	  ellipse(this.x,this.y,30,30);
+      stroke(.2);
+      fill("orange");
+  	  ellipse(this.x,this.y,15,15);
   	}
 
 
@@ -127,15 +129,15 @@ class bruh {
         print (this.direction)
 
     if(this.direction == "none yet"){
-        //what should the bullet do then? 
+        //what should the bullet do then?
     }
      if(this.direction == "right"){
-        this.x =(this.x*1)+5
+        this.x =(this.x*1)+50;
       }
 
 
       if(this.direction == "left"){
-        this.x = this.x-5;
+        this.x = this.x-50;
       }
 
     }
