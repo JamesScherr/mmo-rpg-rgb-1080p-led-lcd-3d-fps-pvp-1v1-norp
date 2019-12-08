@@ -31,10 +31,13 @@ function draw() {
   char2.moveBruh();
   char.healthbar();
   char2.healthbar();
+  char.hit()
+  char2.hit()
   fill(148, 240, 10)
   noStroke()
   ground.drawPlatform();
   textSize(30)
+
 
   for(let i = 0; i < platforms.length; i++){
   platforms[i].drawPlatform()
@@ -91,7 +94,7 @@ class bruh {
 	drawBruh(){
     stroke(.5);
     fill(this.color);
-	rect(this.x,this.y,30,30);
+	  rect(this.x,this.y,30,30);
 	}
 
 	moveBruh(){
@@ -267,10 +270,10 @@ class Bullet {
          //what should the bullet do then?
       }
       if(this.direction == "right"){
-         this.x =(this.x*1)+50;
+         this.x =(this.x*1)+30;
       }
       if(this.direction == "left"){
-         this.x = this.x-50;
+         this.x = this.x-30;
       }
     }
 }
