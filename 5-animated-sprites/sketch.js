@@ -10,8 +10,8 @@ function preload() {
 }
 function setup() {
   createCanvas(1600, 900);
-  char = new bruh(1450, 600, 0, 0, 0, 0, false, 100, "white", UP_ARROW, RIGHT_ARROW, LEFT_ARROW, "left");
-  char2 = new bruh(100, 750, 0,0,0,0, false,100, "green", 87,68,65, "right")
+  char = new bruh(1450, 600, 0, 0, 0, 0, false, 100, "blue", UP_ARROW, RIGHT_ARROW, LEFT_ARROW, "left");
+  char2 = new bruh(100, 750, 0,0,0,0, false,100, "red", 87,68,65, "right")
   ground = new platform(0, 830, 1600, 100);
 
   for(let i = 0; i < 4; i++){
@@ -21,24 +21,34 @@ function setup() {
 }
 
 function draw() {
-  noStroke()
   background(10, 163, 240);
   char.drawBruh();
-  char.moveBruh();
-  char.land()
-  char2.land()
   char2.drawBruh();
-  char2.moveBruh();
   char.healthbar();
   char2.healthbar();
-  char.hit()
-  char2.hit()
+  char.land()
+  char2.land()  
   fill(148, 240, 10)
   noStroke()
   ground.drawPlatform();
   textSize(30)
+  if(char.health >= 0 && char2.health>0){
+    char.moveBruh();
+    char2.moveBruh();
+    char.hit()
+    char2.hit()
+  }
+  if(char.health <= 0){
+    fill(0,0,0)
+    text("red wins", 700, 100)
 
-
+  }
+  if(char2.health <= 0){
+    fill(0,0,0)
+    text("blue wins", 700, 100)
+  }
+  noStroke()
+  fill(148, 240, 10)
   for(let i = 0; i < platforms.length; i++){
   platforms[i].drawPlatform()
   }
